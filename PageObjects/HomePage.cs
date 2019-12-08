@@ -20,7 +20,8 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
         private readonly ElementLocator 
             emailField = new ElementLocator(Locator.ClassName, "email"),
             passwordField = new ElementLocator(Locator.ClassName, "passwd"),
-            loginButton = new ElementLocator(Locator.ClassName, "SubmitLogin");
+            loginButton = new ElementLocator(Locator.ClassName, "SubmitLogin"),
+            logoutButton = new ElementLocator(Locator.ClassName, "logout");
 
         private readonly string myAccountPage ="http://automationpractice.com/index.php?controller=my-account";
         public HomePage(DriverContext driverContext) : base(driverContext)
@@ -36,6 +37,10 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             this.Driver.FindElement(By.Id(loginButton.Value)).Click();
         }
 
-        
+        public void Logout() 
+        {
+            Driver.FindElement(By.ClassName(logoutButton.Value)).Click();
+        }
+
     }
 }
