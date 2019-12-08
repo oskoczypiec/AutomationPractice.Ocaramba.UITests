@@ -12,6 +12,7 @@ namespace AutomationPractice.Ocaramba.UITests
     public class ProjectTestBase : TestBase
     {
         private readonly DriverContext driverContext = new DriverContext();
+        private readonly string homePage = "http://automationpractice.com/";
 
         /// <summary>
         /// Gets or sets logger instance for driver
@@ -69,6 +70,7 @@ namespace AutomationPractice.Ocaramba.UITests
         [SetUp]
         public void BeforeTest()
         {
+            this.DriverContext.Driver.Navigate().GoToUrl(homePage);
             this.DriverContext.TestTitle = TestContext.CurrentContext.Test.Name;
             this.LogTest.LogTestStarting(this.driverContext);
         }

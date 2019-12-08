@@ -21,13 +21,15 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             emailField = new ElementLocator(Locator.ClassName, "email"),
             passwordField = new ElementLocator(Locator.ClassName, "passwd"),
             loginButton = new ElementLocator(Locator.ClassName, "SubmitLogin");
+
+        private readonly string myAccountPage ="http://automationpractice.com/index.php?controller=my-account";
         public HomePage(DriverContext driverContext) : base(driverContext)
         {
         }
        
         public void Login(string email, string password)
         {
-            this.Driver.Navigate().GoToUrl("http://automationpractice.com/index.php?controller=my-account");
+            this.Driver.Navigate().GoToUrl(myAccountPage);
 
             this.Driver.FindElement(By.Id(emailField.Value)).SendKeys(email);
             this.Driver.FindElement(By.Id(passwordField.Value)).SendKeys(password);
