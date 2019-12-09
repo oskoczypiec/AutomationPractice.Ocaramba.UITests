@@ -32,7 +32,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
 
         public void GoToCategory(string categoryName)
         {
-            Driver.GetElement(new ElementLocator(Locator.CssSelector, $"li > a[title='{categoryName}']")).Click();
+            Driver.GetElement(new ElementLocator(Locator.CssSelector, $".sf-menu > li > a[title='{categoryName}']")).Click();
         }
 
         public void SelectItem(string itemName)

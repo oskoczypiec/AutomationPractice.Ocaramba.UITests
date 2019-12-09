@@ -47,7 +47,8 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
 
 
         [TestCase("Women", "Blouse")]
-        //[TestCase("Dresses", "Printed Chiffon Dress")] //TODO: FindElement searches also subcategories, so this case is not working;needs to be changed
+        [TestCase("Dresses", "Printed Chiffon Dress")]
+        [TestCase("T-shirts", "Faded Short Sleeve T-shirts")]
         public void CheckIfItemCanBeBought(string category, string item)
         {
             var shoppingPage = new ShoppingPage(this.DriverContext);
