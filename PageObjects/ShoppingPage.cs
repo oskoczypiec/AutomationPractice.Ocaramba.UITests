@@ -19,7 +19,8 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             addToCartButton = new ElementLocator(Locator.Id, "add_to_cart"),
             layerCartTitle = new ElementLocator(Locator.CssSelector, ".layer_cart_product > h2:nth-child(2)"),
             proceedCheckoutButton = new ElementLocator(Locator.CssSelector, "a.btn:nth-child(2)"),
-            standardCheckoutButton = new ElementLocator(Locator.CssSelector, ".standard-checkout");
+            standardCheckoutButton = new ElementLocator(Locator.CssSelector, ".standard-checkout"),
+            itemPrice = new ElementLocator(Locator.CssSelector, "td > span> .price");
 
         public ShoppingPage(DriverContext driverContext) : base(driverContext)
         {
@@ -40,16 +41,49 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             Driver.GetElement(new ElementLocator(Locator.CssSelector, $".product-name[title='{itemName}'")).Click();
         }
 
-        public void AddItemToCart(string categoryName, string itemName)
+        public string AddItemToCart(string categoryName, string itemName)
         {
             GoToCategory(categoryName);
             SelectItem(itemName);
+            var itemPrice = DriverContext.Driver.FindElement(By.Id("our_price_display")).Text;
             Driver.GetElement(addToCartButton).Click();
-            Driver.GetElement(proceedCheckoutButton).Click();
+            return itemPrice;
         }
-        public void BuyItem()
+
+        public string SummaryOrder()
         {
-            Driver.GetElement(standardCheckoutButton).Click();
+            Driver.GetElement(proceedCheckoutButton).Click();
+            int temp;
+
+            try
+            {
+                Int32.TryParse(itemPrice.Value.TrimStart('$'), out temp); //zwraca 0
+                return temp.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Could not parse value into string. See: {e}");
+            }
+
+
+            return itemPrice.Value;
+
         }
+        public void DeliveryAddres()
+        {
+
+        }
+
+        public void DeliveryMethod()
+        {
+
+        }
+
+        public void PaymentMethod()
+        {
+
+        }
+
+
     }
 }

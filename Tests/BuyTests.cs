@@ -51,9 +51,12 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
         [TestCase("T-shirts", "Faded Short Sleeve T-shirts")]
         public void CheckIfItemCanBeBought(string category, string item)
         {
-            var shoppingPage = new ShoppingPage(this.DriverContext);
-            shoppingPage.AddItemToCart(category, item);
-           
+            var shoppingPage = new ShoppingPage(this.DriverContext);        
+            var expectedPrice = shoppingPage.AddItemToCart(category, item);
+            var actualPrice = shoppingPage.SummaryOrder();
+            
+            Assert.That(actualPrice, Is.EqualTo(expectedPrice));
+            
         }
     }
 }
