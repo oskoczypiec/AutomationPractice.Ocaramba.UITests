@@ -53,20 +53,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
         public string SummaryOrder()
         {
             Driver.GetElement(proceedCheckoutButton).Click();
-            int temp;
-
-            try
-            {
-                Int32.TryParse(itemPrice.Value.TrimStart('$'), out temp); //zwraca 0
-                return temp.ToString();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Could not parse value into string. See: {e}");
-            }
-
-
-            return itemPrice.Value;
+            return Driver.GetElement(itemPrice).Text; 
 
         }
         public void DeliveryAddres()

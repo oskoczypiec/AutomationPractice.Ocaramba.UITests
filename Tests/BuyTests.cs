@@ -57,6 +57,7 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
             
             Assert.That(actualPrice, Is.EqualTo(expectedPrice));
             
+
         }
     }
 }
