@@ -5,6 +5,8 @@ using OpenQA.Selenium;
 using System.Text.RegularExpressions;
 using Ocaramba;
 using Ocaramba.Types;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace AutomationPractice.Ocaramba.UITests.Tests
 {
@@ -56,8 +58,13 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
             var actualPrice = shoppingPage.SummaryOrder();
             
             Assert.That(actualPrice, Is.EqualTo(expectedPrice));
-            
 
+            var deliveryAddressDetails = shoppingPage.DeliveryAddress();
+            var expectedAddressDetails = new List<string> { "Aleksandra S", "Unicorn Land 6", "Wroclaw, Oregon 56757", "United States", "123456789" };
+            Assert.AreEqual(deliveryAddressDetails, expectedAddressDetails);
         }
+
+
+        
     }
 }
