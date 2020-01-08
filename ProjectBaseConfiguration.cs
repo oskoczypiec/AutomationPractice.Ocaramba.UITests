@@ -12,7 +12,9 @@ namespace AutomationPractice.Ocaramba.UITests
     public static class ProjectBaseConfiguration
     {
         private static readonly string CurrentDirectory = TestContext.CurrentContext.TestDirectory;
-
+        public static string Url { get; } = ConfigurationManager.AppSettings["url"];
+        public static string UsernameUser { get; } = ConfigurationManager.AppSettings["usernameUser"];
+        public static string PasswordUser { get; } = ConfigurationManager.AppSettings["passwordUser"];
         /// <summary>
         /// Gets the data driven file.
         /// </summary>

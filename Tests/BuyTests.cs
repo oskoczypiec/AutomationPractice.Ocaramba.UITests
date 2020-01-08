@@ -19,10 +19,7 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
         [SetUp]
         public void Setup()
         {
-            user = new HomePage(this.DriverContext);
-            user.Login("o.skoczypiec@gmail.com", "testing123");
-            instance = new ShoppingPage(this.DriverContext);
-            instance.GoToHomePage();
+            DriverContext.WindowMaximize();
         }
 
         [TearDown]
@@ -64,7 +61,44 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
             Assert.AreEqual(deliveryAddressDetails, expectedAddressDetails);
         }
 
+        [Test]
+        public void BuyingItems()
+        {
+            var loginPage = new LoginPage(DriverContext);
+            var homePage = new HomePage(DriverContext);
+            var categoryPage = new CategoryPage(DriverContext);
+            var orderPage = new OrderPage(DriverContext);
+            var orderAddressPage = new OrderAddressPage(DriverContext);
+            var orderShippingPage = new OrderShippingPage(DriverContext);
+            var orderPaymentPage = new OrderPaymentPage(DriverContext);
+            var orderConfirmationPage = new OrderConfirmationPage(DriverContext);
 
-        
+            loginPage.LoginAsUser();
+            //loginPage.LoginAsOtherUser("o.skoczypiec@gmail.com", "xxx123");
+            //mainPage.CheckIfUserIsLoggedAs("Aleksandra S"); // no checking in page object
+            homePage.GoToCategory("Summer Dresses");
+            categoryPage.AddToCart("Printed Summer Dress");
+            categoryPage.ClickContinueShopping();
+            categoryPage.AddToCart("Printed Chiffon Dress");
+            categoryPage.ClickProceedToCheckout();
+            //orderPage.CheckOrderItems(); no checking in page object 
+            orderPage.ChangeQty("Printed Chiffon Dress", 2);
+            //orderPage.CheckTotalPrice(); no checking in page object 
+            //orderPage.CheckDeliveryAddress(); no checking in page object 
+            //orderPage.CheckInvoiceAddress(); no checking in page object 
+            //orderPage.ClickProceedToCheckout(); no checking in page object 
+            orderAddressPage.ClickProceedToCheckout();
+            orderShippingPage.SelectCheckboxTermsOfService();
+            orderShippingPage.ClickProceedToCheckout();
+            //orderPaymentPage.CheckTotalPrice(); no checking in page object 
+            orderPaymentPage.ClickPayByCheck();
+            orderPaymentPage.ClickConfirmMyOrder();
+            //orderPaymentPage.CheckPaymentAmount(); no checking in page object
+            orderConfirmationPage.ClickBackToOrders();
+            //orderHistoryPage.CheckTotalPrice(); no checking in page object 
+            //orderHistoryPage.CheckPaymentType(); no checking in page object
+            homePage.Logout();
+        }
+
     }
 }

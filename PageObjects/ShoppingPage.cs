@@ -28,7 +28,9 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             deliveryState = new ElementLocator(Locator.CssSelector, "#address_delivery > .address_state_name"),
             deliveryPostCode = new ElementLocator(Locator.CssSelector, "#address_delivery > .address_postcode"),
             deliveryCountryName = new ElementLocator(Locator.CssSelector, "#address_delivery > .address_country_name"),
-            deliveryPhoneNumber = new ElementLocator(Locator.CssSelector, "#address_delivery > .address_phone_mobile");
+            deliveryPhoneNumber = new ElementLocator(Locator.CssSelector, "#address_delivery > .address_phone_mobile"),
+            addressProceedCheckout = new ElementLocator(Locator.CssSelector, ".cart_navigation .button-medium");
+            
 
         public ShoppingPage(DriverContext driverContext) : base(driverContext)
         {
@@ -84,6 +86,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
 
         public void DeliveryMethod()
         {
+            Driver.GetElement(addressProceedCheckout).Click();
 
         }
 

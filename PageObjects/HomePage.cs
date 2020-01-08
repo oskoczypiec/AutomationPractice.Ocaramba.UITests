@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NLog;
 using Ocaramba;
+using Ocaramba.Extensions;
 using Ocaramba.Types;
 using OpenQA.Selenium;
 
@@ -41,6 +42,13 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
         {
             Driver.FindElement(By.ClassName(logoutButton.Value)).Click();
         }
-
+        public void GoToCategory(string categoryName)
+        {
+            var subMenuContainer = new ElementLocator(Locator.CssSelector, " a[title='Women']");
+            var category = new ElementLocator(Locator.CssSelector, $"a[title='{categoryName}']");
+            Driver.GetElement(subMenuContainer).SetAttribute("display", "block");
+            Driver.GetElement(category).Click();
+        
+        }
     }
 }
