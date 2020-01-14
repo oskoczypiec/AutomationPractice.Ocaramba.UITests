@@ -62,7 +62,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             Actions action = new Actions(Driver);
             action.MoveToElement(element).Build();
             action.Perform();
-            TimeSpan.FromSeconds(2);
+            TimeSpan.FromSeconds(4);
         }
 
         public void CheckIfUserIsLoggedAs(string expectedLoggedUser)

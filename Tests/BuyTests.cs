@@ -29,9 +29,10 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
 
             loginPage.LoginAsUser();
             homePage.CheckIfUserIsLoggedAs("Aleksandra S"); 
-            homePage.GoToCategory("Summer Dresses");
+            homePage.GoToCategory("Summer Dresses"); 
             categoryPage.AddToCart("Printed Summer Dress");
             categoryPage.ClickContinueShopping();
+            homePage.GoToCategory("Summer Dresses");
             categoryPage.AddToCart("Printed Chiffon Dress");
             categoryPage.ClickProceedToCheckout();
             orderPage.CheckOrderItems(); 

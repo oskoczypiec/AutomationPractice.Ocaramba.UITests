@@ -45,7 +45,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
 
         public void ClickProceedToCheckout()
         {
-            Driver.GetElement(continueShoppingButton).Click();
+            Driver.GetElement(proceedCheckoutButton).Click();
         }
     }
 }
