@@ -1,12 +1,6 @@
 ﻿using NUnit.Framework;
 using AutomationPractice.Ocaramba.UITests.PageObjects;
-using Ocaramba.Extensions;
-using OpenQA.Selenium;
-using System.Text.RegularExpressions;
 using Ocaramba;
-using Ocaramba.Types;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace AutomationPractice.Ocaramba.UITests.Tests
 {
@@ -14,51 +8,11 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
     [Parallelizable(ParallelScope.Fixtures)]
     class BuyTests : ProjectTestBase
     {
-        ShoppingPage instance;
-        HomePage user;
+
         [SetUp]
         public void Setup()
         {
             DriverContext.WindowMaximize();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            user.Logout();
-        }
-
-        [Test]
-        public void CheckIfCategoryIsOpened()
-        {
-            instance.GoToCategory("Women");
-            var expectedCategoryOpened = DriverContext.Driver.FindElement(By.CssSelector(".cat-name")).Text.Trim();
-            StringAssert.AreEqualIgnoringCase("Women", expectedCategoryOpened);
-        }
-
-        [Test]
-        public void CheckIfItemIsOpened()
-        { 
-            instance.SelectItem("Blouse");
-            var expectedItemSelected = DriverContext.Driver.FindElement(By.CssSelector(".pb-center-column > h1:nth-child(1)")).Text;
-            StringAssert.AreEqualIgnoringCase("Blouse", expectedItemSelected);
-        }
-
-
-        [TestCase("Women", "Blouse")]
-        [TestCase("Dresses", "Printed Chiffon Dress")]
-        [TestCase("T-shirts", "Faded Short Sleeve T-shirts")]
-        public void CheckIfItemCanBeBought(string category, string item)
-        {
-            var shoppingPage = new ShoppingPage(this.DriverContext);        
-            var expectedPrice = shoppingPage.AddItemToCart(category, item);
-            var actualPrice = shoppingPage.SummaryOrder();
-            
-            Assert.That(actualPrice, Is.EqualTo(expectedPrice));
-
-            var deliveryAddressDetails = shoppingPage.DeliveryAddress();
-            var expectedAddressDetails = new List<string> { "Aleksandra S", "Unicorn Land 6", "Wroclaw, Oregon 56757", "United States", "123456789" };
-            Assert.AreEqual(deliveryAddressDetails, expectedAddressDetails);
         }
 
         [Test]
@@ -74,14 +28,13 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
             var orderConfirmationPage = new OrderConfirmationPage(DriverContext);
 
             loginPage.LoginAsUser();
-            //loginPage.LoginAsOtherUser("o.skoczypiec@gmail.com", "xxx123");
-            //mainPage.CheckIfUserIsLoggedAs("Aleksandra S"); // no checking in page object
+            homePage.CheckIfUserIsLoggedAs("Aleksandra S"); 
             homePage.GoToCategory("Summer Dresses");
             categoryPage.AddToCart("Printed Summer Dress");
             categoryPage.ClickContinueShopping();
             categoryPage.AddToCart("Printed Chiffon Dress");
             categoryPage.ClickProceedToCheckout();
-            //orderPage.CheckOrderItems(); no checking in page object 
+            orderPage.CheckOrderItems(); 
             orderPage.ChangeQty("Printed Chiffon Dress", 2);
             //orderPage.CheckTotalPrice(); no checking in page object 
             //orderPage.CheckDeliveryAddress(); no checking in page object 
@@ -99,6 +52,5 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
             //orderHistoryPage.CheckPaymentType(); no checking in page object
             homePage.Logout();
         }
-
     }
 }

@@ -92,7 +92,6 @@
     <Compile Include="PageObjects\HomePage.cs" />
     <Compile Include="PageObjects\InternetPage.cs" />
     <Compile Include="PageObjects\LoginPage.cs" />
-    <Compile Include="PageObjects\MainPage.cs" />
     <Compile Include="PageObjects\OrderConfirmationPage.cs" />
     <Compile Include="PageObjects\OrderPage.cs" />
     <Compile Include="PageObjects\OrderPaymentPage.cs" />

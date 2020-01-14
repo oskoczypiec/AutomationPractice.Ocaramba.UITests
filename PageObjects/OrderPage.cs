@@ -24,5 +24,10 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
         {
            
         }
+
+        public void CheckOrderItems()
+        {
+
+        }
     }
 }
