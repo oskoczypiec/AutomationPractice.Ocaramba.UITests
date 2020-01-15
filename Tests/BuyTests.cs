@@ -35,7 +35,7 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
             homePage.GoToCategory("Summer Dresses");
             categoryPage.AddToCart("Printed Chiffon Dress");
             categoryPage.ClickProceedToCheckout();
-            orderPage.CheckOrderItems(); 
+            orderPage.CheckOrderItems("Printed Summer Dress", "Printed Chiffon Dress"); 
             orderPage.ChangeQty("Printed Chiffon Dress", 2);
             //orderPage.CheckTotalPrice(); no checking in page object 
             //orderPage.CheckDeliveryAddress(); no checking in page object 

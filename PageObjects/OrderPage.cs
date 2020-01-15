@@ -1,11 +1,10 @@
-﻿using Ocaramba;
+﻿using NUnit.Framework;
+using Ocaramba;
+using Ocaramba.Extensions;
 using Ocaramba.Types;
-using System;
+using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
 
 namespace AutomationPractice.Ocaramba.UITests.PageObjects
 {
@@ -13,7 +12,8 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
     {
         static string itemName = string.Empty;
         private readonly ElementLocator
-            orderItemName = new ElementLocator(Locator.CssSelector, $"//*[@class='product-name']//*[@class='cart_block_product_name']/@title[.='{itemName}']"),
+            orderItem = new ElementLocator(Locator.CssSelector, $"//*[@class='product-name']//*[@class='cart_block_product_name']/@title[.='{itemName}']"),
+            orderAllItems = new ElementLocator(Locator.XPath, "//*[@class='cart_description']//*[@class='product-name']/a"),
             orderIdName = new ElementLocator(Locator.CssSelector, ""),
             orderAddQty = new ElementLocator(Locator.CssSelector, "");
 
@@ -21,12 +21,14 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
         {
 
         }
-        public void CheckOrderItems(string[] expectedItems)
-        {   
-            //var actualItems = //getElements
-          //  Assert.That(item.Contains(linq)
+        public void CheckOrderItems(params string[] expectedOrderItems)
+        {
+            IList<IWebElement> orderItems = Driver.GetElements(orderAllItems);
+            List<string> actualOrderItems = new List<string>();
 
-            // Assert.That()
+            actualOrderItems.AddRange(orderItems.Select(x => x.Text));
+
+            Assert.That(expectedOrderItems, Is.EqualTo(actualOrderItems));
         }
 
         public void ChangeQty(string itemName, int qty)
