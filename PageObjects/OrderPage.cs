@@ -9,13 +9,9 @@ using System.Linq;
 namespace AutomationPractice.Ocaramba.UITests.PageObjects
 {
     class OrderPage : ProjectPageBase
-    {
-        static string itemName = string.Empty;
+    {        
         private readonly ElementLocator
-            orderItem = new ElementLocator(Locator.CssSelector, $"//*[@class='product-name']//*[@class='cart_block_product_name']/@title[.='{itemName}']"),
-            orderAllItems = new ElementLocator(Locator.XPath, "//*[@class='cart_description']//*[@class='product-name']/a"),
-            orderIdName = new ElementLocator(Locator.CssSelector, ""),
-            orderAddQty = new ElementLocator(Locator.CssSelector, "");
+            orderAllItems = new ElementLocator(Locator.XPath, "//*[@class='cart_description']//*[@class='product-name']/a");
 
         public OrderPage(DriverContext driverContext) : base(driverContext)
         {
@@ -31,9 +27,17 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             Assert.That(expectedOrderItems, Is.EqualTo(actualOrderItems));
         }
 
-        public void ChangeQty(string itemName, int qty)
+        public void ChangeQty(string name, int qty)
         {
-           
+            for (int i = 1; i < qty; i++)
+            {
+                Driver.GetElement(ItemAddQty(name)).Click();
+            }
+        }
+
+        private ElementLocator ItemAddQty(string item)
+        {
+            return new ElementLocator(Locator.XPath, $"//p[@class='product-name']/a[.='{item}']/../../..//a[@title='Add']");
         }
 
 
