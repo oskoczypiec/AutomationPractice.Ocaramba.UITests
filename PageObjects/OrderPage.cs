@@ -3,6 +3,7 @@ using Ocaramba;
 using Ocaramba.Extensions;
 using Ocaramba.Types;
 using OpenQA.Selenium;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +14,6 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
     {
         private readonly ElementLocator
             orderAllItems = new ElementLocator(Locator.XPath, "//*[@class='cart_description']//*[@class='product-name']/a"),
-            totalPrice = new ElementLocator(Locator.Id, "total_price"),
             addressName = new ElementLocator(Locator.CssSelector, "ul.first_item > li > .address_name"),
             addressAddress1 = new ElementLocator(Locator.CssSelector, "ul.first_item > li > .address_address1"),
             addressCity = new ElementLocator(Locator.CssSelector, "ul.first_item > li > .address_city"),
@@ -47,13 +47,16 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             {
                 Driver.GetElement(ItemAddQty(name)).Click();
             }
+            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
 
         public void CheckTotalPrice(string expectedTotalPrice)
         {
-            var actualTotalPrice = Driver.GetElement(totalPrice).Text.Trim('$');
-            Assert.That(expectedTotalPrice, Is.EqualTo(actualTotalPrice));
+            var actualTotalPrice = Driver.GetElement(CurrentTotalPrice).Text.Trim('$');
+            Assert.That(actualTotalPrice, Is.EqualTo(expectedTotalPrice));
         }
+
+        public ElementLocator CurrentTotalPrice => new ElementLocator(Locator.Id, "total_price");
 
         public void CheckDeliveryAddress(params string[] expectedDeliveryAddress)
         {
