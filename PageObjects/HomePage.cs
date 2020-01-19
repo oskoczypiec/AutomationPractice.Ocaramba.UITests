@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NLog;
 using NUnit.Framework;
 using Ocaramba;
 using Ocaramba.Extensions;
@@ -15,11 +10,6 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
 {
     class HomePage : ProjectPageBase
     {
-        private static readonly NLog.Logger Logger = LogManager.GetCurrentClassLogger();
-
-        /// <summary>
-        /// Locators for elements
-        /// </summary>
         private readonly ElementLocator 
             emailField = new ElementLocator(Locator.ClassName, "email"),
             passwordField = new ElementLocator(Locator.ClassName, "passwd"),
@@ -53,8 +43,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             var getSubMenuContainer = Driver.FindElement(subMenuContainer);
             var category = By.CssSelector($"a[title='{categoryName}']");
             HoverOnElement(getSubMenuContainer);
-            Driver.FindElement(category).Click(); //TODO: Not working, menu is hovered not long enough
-
+            Driver.FindElement(category).Click();
         }
 
         private void HoverOnElement(IWebElement element)
@@ -62,7 +51,6 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             Actions action = new Actions(Driver);
             action.MoveToElement(element).Build();
             action.Perform();
-            TimeSpan.FromSeconds(4);
         }
 
         public void CheckIfUserIsLoggedAs(string expectedLoggedUser)

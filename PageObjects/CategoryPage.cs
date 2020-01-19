@@ -1,11 +1,5 @@
 ﻿using Ocaramba;
 using Ocaramba.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
 using Ocaramba.Extensions;
 
 namespace AutomationPractice.Ocaramba.UITests.PageObjects
@@ -20,8 +14,8 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
 
         public CategoryPage(DriverContext driverContext) : base(driverContext)
         {
-
         }
+
         public void GoToCategory(string categoryName)
         {
             Driver.GetElement(new ElementLocator(Locator.CssSelector, $".sf-menu > li > a[title='{categoryName}']")).Click();

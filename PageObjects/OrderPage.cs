@@ -6,17 +6,31 @@ using OpenQA.Selenium;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace AutomationPractice.Ocaramba.UITests.PageObjects
 {
     class OrderPage : ProjectPageBase
-    {        
+    {
         private readonly ElementLocator
-            orderAllItems = new ElementLocator(Locator.XPath, "//*[@class='cart_description']//*[@class='product-name']/a");
+            orderAllItems = new ElementLocator(Locator.XPath, "//*[@class='cart_description']//*[@class='product-name']/a"),
+            totalPrice = new ElementLocator(Locator.Id, "total_price"),
+            addressName = new ElementLocator(Locator.CssSelector, "ul.first_item > li > .address_name"),
+            addressAddress1 = new ElementLocator(Locator.CssSelector, "ul.first_item > li > .address_address1"),
+            addressCity = new ElementLocator(Locator.CssSelector, "ul.first_item > li > .address_city"),
+            addressPhoneMobile = new ElementLocator(Locator.CssSelector, "ul.first_item >li > .address_phone_mobile"),
+            addressCountry = new ElementLocator(Locator.XPath, "//*[@class='address first_item item box']/li[5]/span"),
+            invoiceName = new ElementLocator(Locator.CssSelector, "ul.last_item > li > .address_name"),
+            invoiceAddress1 = new ElementLocator(Locator.CssSelector, "ul.last_item > li > .address_address1"),
+            invoiceCity = new ElementLocator(Locator.CssSelector, "ul.last_item > li > .address_city"),
+            invoiceCountry = new ElementLocator(Locator.XPath, "//*[@class='address last_item alternate_item box']/li[5]/span"),
+            invoicePhoneMobile = new ElementLocator(Locator.CssSelector, "ul.last_item > li > .address_phone_mobile"),
+            proceedToCheckoutButton = new ElementLocator(Locator.CssSelector, ".standard-checkout");
+
 
         public OrderPage(DriverContext driverContext) : base(driverContext)
         {
-
         }
+
         public void CheckOrderItems(params string[] expectedOrderItems)
         {
             IList<IWebElement> orderItems = Driver.GetElements(orderAllItems);
@@ -33,6 +47,43 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             {
                 Driver.GetElement(ItemAddQty(name)).Click();
             }
+        }
+
+        public void CheckTotalPrice(string expectedTotalPrice)
+        {
+            var actualTotalPrice = Driver.GetElement(totalPrice).Text.Trim('$');
+            Assert.That(expectedTotalPrice, Is.EqualTo(actualTotalPrice));
+        }
+
+        public void CheckDeliveryAddress(params string[] expectedDeliveryAddress)
+        {
+            var name = Driver.GetElement(addressName).Text;
+            var address = Driver.GetElement(addressAddress1).Text;
+            var city = Driver.GetElement(addressCity).Text;
+            var number = Driver.GetElement(addressPhoneMobile).Text;
+            var country = Driver.GetElement(addressCountry).Text;
+
+            List<string> actualDeliveryAddress = new List<string> { name, address, city, country, number };
+
+            Assert.AreEqual(expectedDeliveryAddress, actualDeliveryAddress);
+        }
+
+        public void CheckInvoiceAddress(params string[] expectedInvoiceAddress)
+        {
+            var name = Driver.GetElement(invoiceName).Text;
+            var address = Driver.GetElement(invoiceAddress1).Text;
+            var city = Driver.GetElement(invoiceCity).Text;
+            var number = Driver.GetElement(invoicePhoneMobile).Text;
+            var country = Driver.GetElement(invoiceCountry).Text;
+
+            List<string> actualInvoiceAddress = new List<string> { name, address, city, country, number };
+
+            Assert.AreEqual(expectedInvoiceAddress, actualInvoiceAddress);
+        }
+
+        public void ClickProceedToCheckout()
+        {
+            Driver.GetElement(proceedToCheckoutButton).Click();
         }
 
         private ElementLocator ItemAddQty(string item)

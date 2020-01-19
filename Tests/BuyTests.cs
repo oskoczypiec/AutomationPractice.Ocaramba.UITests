@@ -37,20 +37,18 @@ namespace AutomationPractice.Ocaramba.UITests.Tests
             categoryPage.ClickProceedToCheckout();
             orderPage.CheckOrderItems("Printed Summer Dress", "Printed Chiffon Dress"); 
             orderPage.ChangeQty("Printed Chiffon Dress", 2);
-            //orderPage.CheckTotalPrice(); no checking in page object 
-            //orderPage.CheckDeliveryAddress(); no checking in page object 
-            //orderPage.CheckInvoiceAddress(); no checking in page object 
-            //orderPage.ClickProceedToCheckout(); no checking in page object 
+            orderPage.CheckTotalPrice("63.78");
+            orderPage.CheckDeliveryAddress("Aleksandra S", "Unicorn Land 611", "Wroclaw, Oregon 56757", "United States", "123456789");
+            orderPage.CheckInvoiceAddress("Aleksandra S", "Unicorn Land 611", "Wroclaw, Oregon 56757", "United States", "123456789");
+            orderPage.ClickProceedToCheckout();
             orderAddressPage.ClickProceedToCheckout();
             orderShippingPage.SelectCheckboxTermsOfService();
             orderShippingPage.ClickProceedToCheckout();
-            //orderPaymentPage.CheckTotalPrice(); no checking in page object 
+            orderPaymentPage.CheckTotalPrice("63.78");
             orderPaymentPage.ClickPayByCheck();
             orderPaymentPage.ClickConfirmMyOrder();
-            //orderPaymentPage.CheckPaymentAmount(); no checking in page object
+            orderPaymentPage.CheckPaymentAmount("63.78"); 
             orderConfirmationPage.ClickBackToOrders();
-            //orderHistoryPage.CheckTotalPrice(); no checking in page object 
-            //orderHistoryPage.CheckPaymentType(); no checking in page object
             homePage.Logout();
         }
     }

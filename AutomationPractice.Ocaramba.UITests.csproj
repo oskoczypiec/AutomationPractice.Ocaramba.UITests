@@ -90,13 +90,11 @@
     <Compile Include="PageObjects\OrderAddressPage.cs" />
     <Compile Include="PageObjects\CategoryPage.cs" />
     <Compile Include="PageObjects\HomePage.cs" />
-    <Compile Include="PageObjects\InternetPage.cs" />
     <Compile Include="PageObjects\LoginPage.cs" />
     <Compile Include="PageObjects\OrderConfirmationPage.cs" />
     <Compile Include="PageObjects\OrderPage.cs" />
     <Compile Include="PageObjects\OrderPaymentPage.cs" />
     <Compile Include="PageObjects\OrderShippingPage.cs" />
-    <Compile Include="PageObjects\ShoppingPage.cs" />
     <Compile Include="Tests\BuyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProjectBaseConfiguration.cs" />

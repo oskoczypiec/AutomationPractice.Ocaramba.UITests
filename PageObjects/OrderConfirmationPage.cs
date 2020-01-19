@@ -1,11 +1,6 @@
 ﻿using Ocaramba;
 using Ocaramba.Extensions;
 using Ocaramba.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationPractice.Ocaramba.UITests.PageObjects
 {
@@ -16,7 +11,6 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
 
         public OrderConfirmationPage(DriverContext driverContext) : base(driverContext)
         {
-
         }
 
         public void ClickBackToOrders()
