@@ -3,10 +3,11 @@ using Ocaramba;
 using Ocaramba.Extensions;
 using Ocaramba.Types;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading;
 
 namespace AutomationPractice.Ocaramba.UITests.PageObjects
 {
@@ -47,16 +48,20 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             {
                 Driver.GetElement(ItemAddQty(name)).Click();
             }
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            Thread.Sleep(TimeSpan.FromSeconds(1));          
         }
 
         public void CheckTotalPrice(string expectedTotalPrice)
         {
-            var actualTotalPrice = Driver.GetElement(CurrentTotalPrice).Text.Trim('$');
+            var actualPrice = new ElementLocator(Locator.Id, "total_price");
+            var actualTotalPrice = Driver.GetElement(actualPrice).Text.Trim('$');
             Assert.That(actualTotalPrice, Is.EqualTo(expectedTotalPrice));
         }
 
-        public ElementLocator CurrentTotalPrice => new ElementLocator(Locator.Id, "total_price");
+        public ElementLocator GetCurrentTotalPrice()
+        {
+            return new ElementLocator(Locator.Id, "total_price");
+        }
 
         public void CheckDeliveryAddress(params string[] expectedDeliveryAddress)
         {

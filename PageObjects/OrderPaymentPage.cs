@@ -8,7 +8,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
     class OrderPaymentPage : ProjectPageBase
     {
         private readonly ElementLocator
-            payByCheckButton = new ElementLocator(Locator.ClassName, ".cheque"),
+            payByCheckButton = new ElementLocator(Locator.ClassName, "cheque"),
             confirmOrderButton = new ElementLocator(Locator.CssSelector, "button.button-medium"),
             totalPrice = new ElementLocator(Locator.Id, "total_price"),
             paymentAmount = new ElementLocator(Locator.CssSelector, ".box > span.price");

@@ -7,8 +7,8 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
     class OrderShippingPage : ProjectPageBase
     {
         private readonly ElementLocator
-            checkboxTermsOfService = new ElementLocator(Locator.ClassName, "checkbox"),
-            proceedToCheckoutButton = new ElementLocator(Locator.CssSelector, "p > button");
+            checkboxTermsOfService = new ElementLocator(Locator.Id, "uniform-cgv"),
+            proceedToCheckoutButton = new ElementLocator(Locator.Name, "processCarrier");
 
         public OrderShippingPage(DriverContext driverContext) : base(driverContext)
         {

@@ -7,7 +7,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
     class OrderConfirmationPage : ProjectPageBase
     {
         private readonly ElementLocator
-            backToOrdersButton = new ElementLocator(Locator.ClassName, ".button-exclusive");
+            backToOrdersButton = new ElementLocator(Locator.ClassName, "button-exclusive");
 
         public OrderConfirmationPage(DriverContext driverContext) : base(driverContext)
         {
