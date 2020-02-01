@@ -27,6 +27,10 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             invoicePhoneMobile = new ElementLocator(Locator.CssSelector, "ul.last_item > li > .address_phone_mobile"),
             proceedToCheckoutButton = new ElementLocator(Locator.CssSelector, ".standard-checkout");
 
+        private readonly By
+            totalPrice = By.Id("total_price");
+
+
 
         public OrderPage(DriverContext driverContext) : base(driverContext)
         {
@@ -48,7 +52,23 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             {
                 Driver.GetElement(ItemAddQty(name)).Click();
             }
-            Thread.Sleep(TimeSpan.FromSeconds(1));          
+            WaitForElementUpdate();        
+        }
+
+        private void WaitForElementUpdate()
+        {
+            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(1));
+            Func<IWebDriver, IWebElement> waitForElement = new Func<IWebDriver, IWebElement>((Driver) =>
+            {
+                IWebElement element = Driver.FindElement(totalPrice);
+                if (element.Text.Contains("$63.78"))
+                {
+                    return element;
+                }
+                return null;
+            });
+
+            IWebElement targetElement = wait.Until(waitForElement);
         }
 
         public void CheckTotalPrice(string expectedTotalPrice)
@@ -56,11 +76,6 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             var actualPrice = new ElementLocator(Locator.Id, "total_price");
             var actualTotalPrice = Driver.GetElement(actualPrice).Text.Trim('$');
             Assert.That(actualTotalPrice, Is.EqualTo(expectedTotalPrice));
-        }
-
-        public ElementLocator GetCurrentTotalPrice()
-        {
-            return new ElementLocator(Locator.Id, "total_price");
         }
 
         public void CheckDeliveryAddress(params string[] expectedDeliveryAddress)
