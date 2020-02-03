@@ -72,8 +72,7 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
 
         public void CheckTotalPrice(string expectedTotalPrice)
         {
-            var actualPrice = new ElementLocator(Locator.Id, "total_price");
-            var actualTotalPrice = Driver.GetElement(actualPrice).Text.Trim('$');
+            var actualTotalPrice = Driver.FindElement(totalPrice).Text.Trim('$');
             Assert.That(actualTotalPrice, Is.EqualTo(expectedTotalPrice));
         }
 
