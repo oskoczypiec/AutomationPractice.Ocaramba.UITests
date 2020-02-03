@@ -3,10 +3,10 @@ using Ocaramba;
 using Ocaramba.Extensions;
 using Ocaramba.Types;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 
 namespace AutomationPractice.Ocaramba.UITests.PageObjects
 {
@@ -25,6 +25,10 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             invoiceCountry = new ElementLocator(Locator.XPath, "//*[@class='address last_item alternate_item box']/li[5]/span"),
             invoicePhoneMobile = new ElementLocator(Locator.CssSelector, "ul.last_item > li > .address_phone_mobile"),
             proceedToCheckoutButton = new ElementLocator(Locator.CssSelector, ".standard-checkout");
+
+        private readonly By
+            totalPrice = By.Id("total_price");
+
 
 
         public OrderPage(DriverContext driverContext) : base(driverContext)
@@ -47,16 +51,30 @@ namespace AutomationPractice.Ocaramba.UITests.PageObjects
             {
                 Driver.GetElement(ItemAddQty(name)).Click();
             }
-            Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            WaitForElementUpdate();        
+        }
+
+        private void WaitForElementUpdate()
+        {
+            var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(1));
+            Func<IWebDriver, IWebElement> waitForElement = new Func<IWebDriver, IWebElement>((Driver) =>
+            {
+                IWebElement element = Driver.FindElement(totalPrice);
+                if (element.Text.Contains("$63.78"))
+                {
+                    return element;
+                }
+                return null;
+            });
+
+            IWebElement targetElement = wait.Until(waitForElement);
         }
 
         public void CheckTotalPrice(string expectedTotalPrice)
         {
-            var actualTotalPrice = Driver.GetElement(CurrentTotalPrice).Text.Trim('$');
+            var actualTotalPrice = Driver.FindElement(totalPrice).Text.Trim('$');
             Assert.That(actualTotalPrice, Is.EqualTo(expectedTotalPrice));
         }
-
-        public ElementLocator CurrentTotalPrice => new ElementLocator(Locator.Id, "total_price");
 
         public void CheckDeliveryAddress(params string[] expectedDeliveryAddress)
         {
